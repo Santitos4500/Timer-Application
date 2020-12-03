@@ -1,10 +1,18 @@
 package edu.luc.etl.cs313.android.simplestopwatch.android;
 
 import android.app.Activity;
+import android.content.Context;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
+
+import java.io.IOException;
+
 import edu.luc.etl.cs313.android.simplestopwatch.R;
 import edu.luc.etl.cs313.android.simplestopwatch.common.Constants;
 import edu.luc.etl.cs313.android.simplestopwatch.common.StopwatchUIUpdateListener;
@@ -38,6 +46,11 @@ public class StopwatchAdapter extends Activity implements StopwatchUIUpdateListe
         this.setModel(new ConcreteStopwatchModelFacade());
         // inject dependency on this into model to register for UI updates
         model.setUIUpdateListener(this);
+    }
+
+    public void onIncrement(final View view){
+        //model.increment();
+        //updateView();
     }
 
     @Override
@@ -87,6 +100,22 @@ public class StopwatchAdapter extends Activity implements StopwatchUIUpdateListe
             final TextView stateName = (TextView) findViewById(R.id.stateName);
             stateName.setText(getString(stateId));
         });
+    }
+
+    protected void playDefaultNotification() {
+        final Uri defaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        final MediaPlayer mediaPlayer = new MediaPlayer();
+        final Context context = getApplicationContext();
+
+        try {
+            mediaPlayer.setDataSource(context, defaultRingtoneUri);
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_NOTIFICATION);
+            mediaPlayer.prepare();
+            mediaPlayer.setOnCompletionListener(MediaPlayer::release);
+            mediaPlayer.start();
+        } catch (final IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     // forward event listener methods to the model
