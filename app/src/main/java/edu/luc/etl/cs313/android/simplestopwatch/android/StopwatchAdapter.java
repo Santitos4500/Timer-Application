@@ -65,7 +65,7 @@ public class StopwatchAdapter extends Activity implements StopwatchUIUpdateListe
 
             //final TextView tvM = (TextView) findViewById(R.id.minutes);
 
-            final int seconds = time % Constants.SEC_PER_MIN;
+            final int seconds = time % Constants.MAX;
 
             //final int minutes = time / Constants.SEC_PER_MIN;
 
