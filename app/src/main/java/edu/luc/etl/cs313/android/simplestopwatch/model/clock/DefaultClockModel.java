@@ -16,6 +16,8 @@ public class DefaultClockModel implements ClockModel {
 
     private OnTickListener listener;
 
+
+
     @Override
     public void setOnTickListener(final OnTickListener listener) {
         this.listener = listener;

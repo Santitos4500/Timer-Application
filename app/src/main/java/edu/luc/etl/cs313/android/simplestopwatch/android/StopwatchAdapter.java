@@ -48,10 +48,12 @@ public class StopwatchAdapter extends Activity implements StopwatchUIUpdateListe
         model.setUIUpdateListener(this);
     }
 
+    /*
     public void onIncrement(final View view){
-        //model.increment();
-        //updateView();
+        model.increment();
+        updateTime();
     }
+     */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -69,26 +71,29 @@ public class StopwatchAdapter extends Activity implements StopwatchUIUpdateListe
 
     /**
      * Updates the seconds and minutes in the UI.
-     * @param time
+     * @param //time
      */
-    public void updateTime(final int time) {
+    public void updateTime() {
         // UI adapter responsibility to schedule incoming events on UI thread
         runOnUiThread(() -> {
+            //int count = 0;
             final TextView tvS = (TextView) findViewById(R.id.seconds);
-
+            //tvS.setText(Integer.toString(model.get()));
+            //findViewById(R.id.startStop).setEnabled(!model.isFull());
             //final TextView tvM = (TextView) findViewById(R.id.minutes);
 
-            final int seconds = time % Constants.MAX;
+            //final int seconds = 0;
 
             //final int minutes = time / Constants.SEC_PER_MIN;
 
-            tvS.setText(Integer.toString(seconds / 10) + Integer.toString(seconds % 10));
+            //tvS.setText(Integer.toString(seconds / 10) + Integer.toString(seconds % 10));
 
             //delete below (and above) this is for minutes
 
             //tvM.setText(Integer.toString(minutes / 10) + Integer.toString(minutes % 10));
         });
     }
+
 
     /**
      * Updates the state name in the UI.

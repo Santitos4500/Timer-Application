@@ -8,6 +8,6 @@ package edu.luc.etl.cs313.android.simplestopwatch.common;
  * @author laufer
  */
 public interface StopwatchUIUpdateListener {
-    void updateTime(int timeValue);
+    void updateTime();
     void updateState(int stateId);
 }

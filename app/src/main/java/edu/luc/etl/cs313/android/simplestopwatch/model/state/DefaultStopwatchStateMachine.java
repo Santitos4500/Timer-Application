@@ -44,8 +44,8 @@ public class DefaultStopwatchStateMachine implements StopwatchStateMachine {
     @Override public synchronized void onLapReset()  { state.onLapReset(); }
     @Override public synchronized void onTick()      { state.onTick(); }
 
-    @Override public void updateUIRuntime() { uiUpdateListener.updateTime(timeModel.getRuntime()); }
-    @Override public void updateUILaptime() { uiUpdateListener.updateTime(timeModel.getLaptime()); }
+    @Override public void updateUIRuntime() { uiUpdateListener.updateTime(); }
+    @Override public void updateUILaptime() { uiUpdateListener.updateTime(); }
 
     // known states
     private final StopwatchState STOPPED     = new StoppedState(this);
