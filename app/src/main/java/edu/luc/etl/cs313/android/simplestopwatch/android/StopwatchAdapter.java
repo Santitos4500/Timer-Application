@@ -62,11 +62,18 @@ public class StopwatchAdapter extends Activity implements StopwatchUIUpdateListe
         // UI adapter responsibility to schedule incoming events on UI thread
         runOnUiThread(() -> {
             final TextView tvS = (TextView) findViewById(R.id.seconds);
-            final TextView tvM = (TextView) findViewById(R.id.minutes);
+
+            //final TextView tvM = (TextView) findViewById(R.id.minutes);
+
             final int seconds = time % Constants.SEC_PER_MIN;
-            final int minutes = time / Constants.SEC_PER_MIN;
+
+            //final int minutes = time / Constants.SEC_PER_MIN;
+
             tvS.setText(Integer.toString(seconds / 10) + Integer.toString(seconds % 10));
-            tvM.setText(Integer.toString(minutes / 10) + Integer.toString(minutes % 10));
+
+            //delete below (and above) this is for minutes
+
+            //tvM.setText(Integer.toString(minutes / 10) + Integer.toString(minutes % 10));
         });
     }
 
