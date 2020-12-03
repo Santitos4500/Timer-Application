@@ -1,7 +1,6 @@
 package edu.luc.etl.cs313.android.simplestopwatch.test.model.time;
 
-import static edu.luc.etl.cs313.android.simplestopwatch.common.Constants.SEC_PER_HOUR;
-import static edu.luc.etl.cs313.android.simplestopwatch.common.Constants.SEC_PER_MIN;
+import static edu.luc.etl.cs313.android.simplestopwatch.common.Constants.MAX;
 import static edu.luc.etl.cs313.android.simplestopwatch.common.Constants.SEC_PER_TICK;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -48,7 +47,8 @@ public abstract class AbstractTimeModelTest {
         final int rt = model.getRuntime();
         final int lt = model.getLaptime();
         model.incRuntime();
-        assertEquals((rt + SEC_PER_TICK) % SEC_PER_MIN, model.getRuntime());
+        assertEquals((rt + SEC_PER_TICK) , model.getRuntime());
+        //Deleted SEC per MIN
         assertEquals(lt, model.getLaptime());
     }
 
@@ -59,7 +59,8 @@ public abstract class AbstractTimeModelTest {
     public void testIncrementRuntimeMany() {
         final int rt = model.getRuntime();
         final int lt = model.getLaptime();
-        for (int i = 0; i < SEC_PER_HOUR; i ++) {
+        for (int i = 0; i < MAX; i ++) {
+            //changed to MAX
             model.incRuntime();
         }
         assertEquals(rt, model.getRuntime());

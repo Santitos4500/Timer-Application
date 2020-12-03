@@ -12,7 +12,6 @@ import android.widget.TextView;
 import edu.luc.etl.cs313.android.simplestopwatch.R;
 import edu.luc.etl.cs313.android.simplestopwatch.android.StopwatchAdapter;
 
-import static edu.luc.etl.cs313.android.simplestopwatch.common.Constants.SEC_PER_MIN;
 
 /**
  * Abstract GUI-level test superclass of several essential stopwatch scenarios.
@@ -68,6 +67,7 @@ public abstract class AbstractStopwatchActivityTest {
      *
      * @throws Throwable
      */
+   /*
     @Test
     public void testActivityScenarioRunLapReset() throws Throwable {
         getActivity().runOnUiThread(() -> {
@@ -99,7 +99,7 @@ public abstract class AbstractStopwatchActivityTest {
         runUiThreadTasks();
         getActivity().runOnUiThread(() -> assertEquals(0, getDisplayedValue()));
     }
-
+*/
     // auxiliary methods for easy access to UI widgets
 
     protected abstract StopwatchAdapter getActivity();
@@ -110,17 +110,21 @@ public abstract class AbstractStopwatchActivityTest {
 
     protected int getDisplayedValue() {
         final TextView ts = getActivity().findViewById(R.id.seconds);
-        final TextView tm = getActivity().findViewById(R.id.minutes);
-        return SEC_PER_MIN * tvToInt(tm) + tvToInt(ts);
+        //final TextView tm = getActivity().findViewById(R.id.minutes);
+        return tvToInt(ts);
     }
 
     protected Button getStartStopButton() {
         return (Button) getActivity().findViewById(R.id.startStop);
     }
 
+
+
+/*
     protected Button getResetLapButton() {
         return (Button) getActivity().findViewById(R.id.resetLap);
     }
+ */
 
     /**
      * Explicitly runs tasks scheduled to run on the UI thread in case this is required
