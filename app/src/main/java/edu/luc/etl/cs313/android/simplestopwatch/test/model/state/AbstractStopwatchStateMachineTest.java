@@ -22,7 +22,7 @@ import edu.luc.etl.cs313.android.simplestopwatch.model.time.TimeModel;
  * object for all dependencies of the state machine model.
  *
  * @author laufer
- * @see http://xunitpatterns.com/Testcase%20Superclass.html
+ * @see //http://xunitpatterns.com/Testcase%20Superclass.html
  */
 public abstract class AbstractStopwatchStateMachineTest {
 
@@ -165,6 +165,7 @@ class UnifiedMockDependency implements TimeModel, ClockModel, StopwatchUIUpdateL
     public void updateTime(final int timeValue) {
         this.timeValue = timeValue;
     }
+
 
     @Override
     public void updateState(final int stateId) {

@@ -73,7 +73,7 @@ public class StopwatchAdapter extends Activity implements StopwatchUIUpdateListe
      * Updates the seconds and minutes in the UI.
      * @param //time
      */
-    public void updateTime() {
+    public void updateTime(final int timeValue) {
         // UI adapter responsibility to schedule incoming events on UI thread
         runOnUiThread(() -> {
             //int count = 0;
