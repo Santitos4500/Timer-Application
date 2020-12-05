@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import android.widget.Button;
@@ -38,7 +37,9 @@ public abstract class AbstractStopwatchActivityTest {
      */
     @Test
     public void testActivityScenarioInit() throws Throwable {
-        getActivity().runOnUiThread(() -> assertEquals(0, getDisplayedValue()));
+        getActivity().runOnUiThread(new Runnable() { @Override public void run() {
+            assertEquals(0, getDisplayedValue());
+        }});
     }
 
     /**
@@ -48,16 +49,16 @@ public abstract class AbstractStopwatchActivityTest {
      */
     @Test
     public void testActivityScenarioRun() throws Throwable {
-        getActivity().runOnUiThread(() -> {
+        getActivity().runOnUiThread(new Runnable() { @Override public void run() {
             assertEquals(0, getDisplayedValue());
             assertTrue(getStartStopButton().performClick());
-        });
+        }});
         Thread.sleep(5500); // <-- do not run this in the UI thread!
         runUiThreadTasks();
-        getActivity().runOnUiThread(() -> {
+        getActivity().runOnUiThread(new Runnable() { @Override public void run() {
             assertEquals(5, getDisplayedValue());
             assertTrue(getStartStopButton().performClick());
-        });
+        }});
     }
 
     /**
@@ -67,40 +68,6 @@ public abstract class AbstractStopwatchActivityTest {
      *
      * @throws Throwable
      */
-   /*
-    @Test
-    public void testActivityScenarioRunLapReset() throws Throwable {
-        getActivity().runOnUiThread(() -> {
-            assertEquals(0, getDisplayedValue());
-            assertTrue(getStartStopButton().performClick());
-        });
-        Thread.sleep(5500); // <-- do not run this in the UI thread!
-        runUiThreadTasks();
-        getActivity().runOnUiThread(() -> {
-            assertEquals(5, getDisplayedValue());
-            assertTrue(getResetLapButton().performClick());
-        });
-        Thread.sleep(4000); // <-- do not run this in the UI thread!
-        runUiThreadTasks();
-        getActivity().runOnUiThread(() -> {
-            assertEquals(5, getDisplayedValue());
-            assertTrue(getStartStopButton().performClick());
-        });
-        runUiThreadTasks();
-        getActivity().runOnUiThread(() -> {
-            assertEquals(5, getDisplayedValue());
-            assertTrue(getResetLapButton().performClick());
-        });
-        runUiThreadTasks();
-        getActivity().runOnUiThread(() -> {
-            assertEquals(9, getDisplayedValue());
-            assertTrue(getResetLapButton().performClick());
-        });
-        runUiThreadTasks();
-        getActivity().runOnUiThread(() -> assertEquals(0, getDisplayedValue()));
-    }
-*/
-    // auxiliary methods for easy access to UI widgets
 
     protected abstract StopwatchAdapter getActivity();
 
@@ -109,22 +76,13 @@ public abstract class AbstractStopwatchActivityTest {
     }
 
     protected int getDisplayedValue() {
-        final TextView ts = getActivity().findViewById(R.id.seconds);
-        //final TextView tm = getActivity().findViewById(R.id.minutes);
+        final TextView ts = (TextView) getActivity().findViewById(R.id.seconds);
         return tvToInt(ts);
     }
 
     protected Button getStartStopButton() {
-        return (Button) getActivity().findViewById(R.id.startStop);
+        return (Button) getActivity().findViewById(R.id.setStop);
     }
-
-
-
-/*
-    protected Button getResetLapButton() {
-        return (Button) getActivity().findViewById(R.id.resetLap);
-    }
- */
 
     /**
      * Explicitly runs tasks scheduled to run on the UI thread in case this is required

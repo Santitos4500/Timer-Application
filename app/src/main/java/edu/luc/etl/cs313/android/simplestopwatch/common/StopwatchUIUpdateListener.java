@@ -11,3 +11,4 @@ public interface StopwatchUIUpdateListener {
     void updateTime(int timeValue);
     void updateState(int stateId);
 }
+    

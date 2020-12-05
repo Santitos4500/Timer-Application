@@ -1,18 +1,10 @@
 package edu.luc.etl.cs313.android.simplestopwatch.android;
 
 import android.app.Activity;
-import android.content.Context;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
-
-import java.io.IOException;
-
 import edu.luc.etl.cs313.android.simplestopwatch.R;
 import edu.luc.etl.cs313.android.simplestopwatch.common.Constants;
 import edu.luc.etl.cs313.android.simplestopwatch.common.StopwatchUIUpdateListener;
@@ -43,17 +35,18 @@ public class StopwatchAdapter extends Activity implements StopwatchUIUpdateListe
         // inject dependency on view so this adapter receives UI events
         setContentView(R.layout.activity_main);
         // inject dependency on model into this so model receives UI events
-        this.setModel(new ConcreteStopwatchModelFacade());
-        // inject dependency on this into model to register for UI updates
+        this.setModel(new ConcreteStopwatchModelFacade(getApplicationContext()));
         model.setUIUpdateListener(this);
-    }
+        if(savedInstanceState != null){
+            model.getTimeModel().setRuntime(savedInstanceState.getInt("Runtime"));
+            model.getStateMachine().setState(savedInstanceState.getInt("State"));
+            model.getStateMachine().actionUpdateView();
+        }
+        else{
+            model.getStateMachine().actionInit();
+        }
 
-    /*
-    public void onIncrement(final View view){
-        model.increment();
-        updateTime();
     }
-     */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -71,29 +64,18 @@ public class StopwatchAdapter extends Activity implements StopwatchUIUpdateListe
 
     /**
      * Updates the seconds and minutes in the UI.
-     * @param //time
+     * @param time
      */
-    public void updateTime(final int timeValue) {
+    public void updateTime(final int time) {
         // UI adapter responsibility to schedule incoming events on UI thread
         runOnUiThread(() -> {
-            //int count = 0;
             final TextView tvS = (TextView) findViewById(R.id.seconds);
-            //tvS.setText(Integer.toString(model.get()));
-            //findViewById(R.id.startStop).setEnabled(!model.isFull());
-            //final TextView tvM = (TextView) findViewById(R.id.minutes);
 
-            //final int seconds = 0;
+            final int seconds = time;
 
-            //final int minutes = time / Constants.SEC_PER_MIN;
-
-            //tvS.setText(Integer.toString(seconds / 10) + Integer.toString(seconds % 10));
-
-            //delete below (and above) this is for minutes
-
-            //tvM.setText(Integer.toString(minutes / 10) + Integer.toString(minutes % 10));
+            tvS.setText(Integer.toString(seconds / 10) + Integer.toString(seconds % 10));
         });
     }
-
 
     /**
      * Updates the state name in the UI.
@@ -107,28 +89,9 @@ public class StopwatchAdapter extends Activity implements StopwatchUIUpdateListe
         });
     }
 
-    protected void playDefaultNotification() {
-        final Uri defaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        final MediaPlayer mediaPlayer = new MediaPlayer();
-        final Context context = getApplicationContext();
-
-        try {
-            mediaPlayer.setDataSource(context, defaultRingtoneUri);
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_NOTIFICATION);
-            mediaPlayer.prepare();
-            mediaPlayer.setOnCompletionListener(MediaPlayer::release);
-            mediaPlayer.start();
-        } catch (final IOException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
     // forward event listener methods to the model
-    public void onStartStop(final View view) {
-        model.onStartStop();
+    public void onSetStop(final View view) {
+        model.onCurrentStop();
     }
 
-    public void onLapReset(final View view)  {
-        model.onLapReset();
-    }
 }

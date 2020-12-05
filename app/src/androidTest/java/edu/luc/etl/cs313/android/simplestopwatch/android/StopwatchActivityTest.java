@@ -1,6 +1,7 @@
 package edu.luc.etl.cs313.android.simplestopwatch.android;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.text.method.Touch;
 
 import edu.luc.etl.cs313.android.simplestopwatch.test.android.AbstractStopwatchActivityTest;
 
@@ -11,13 +12,15 @@ import edu.luc.etl.cs313.android.simplestopwatch.test.android.AbstractStopwatchA
  * device.
  *
  * @author laufer
- * @see "https://developer.android.com/training/testing/ui-testing/"
+import android.test.ActivityInstrumentationTestCase2;
+import edu.luc.etl.cs313.android.simplestopwatch.test.android.AbstractStopwatchActivityTest;
+ * @see http://developer.android.com/tools/testing/activity_testing.html
  */
 public class StopwatchActivityTest extends ActivityInstrumentationTestCase2<StopwatchAdapter> {
 
     /**
      * Creates an {@link ActivityInstrumentationTestCase2} for the
-     * {@link StopwatchAdapter} activity.
+     * {@link SkeletonActivity} activity.
      */
     public StopwatchActivityTest() {
         super(StopwatchAdapter.class);
@@ -25,14 +28,11 @@ public class StopwatchActivityTest extends ActivityInstrumentationTestCase2<Stop
             @Override
             protected StopwatchAdapter getActivity() {
                 // return activity instance provided by instrumentation test
-                if (stopwatchAdapter == null)
-                    stopwatchAdapter = StopwatchActivityTest.this.getActivity();
-                return stopwatchAdapter;
+                return StopwatchActivityTest.this.getActivity();
             }
         };
     }
 
-    private static StopwatchAdapter stopwatchAdapter = null;
     private AbstractStopwatchActivityTest actualTest;
 
     public void testActivityCheckTestCaseSetUpProperly() {
@@ -43,7 +43,4 @@ public class StopwatchActivityTest extends ActivityInstrumentationTestCase2<Stop
         actualTest.testActivityScenarioRun();
     }
 
-    public void testActivityScenarioRunLapReset() throws Throwable {
-        actualTest.testActivityScenarioRunLapReset();
-    }
 }

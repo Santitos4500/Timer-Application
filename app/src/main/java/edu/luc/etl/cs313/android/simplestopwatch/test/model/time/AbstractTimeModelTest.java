@@ -1,6 +1,6 @@
 package edu.luc.etl.cs313.android.simplestopwatch.test.model.time;
 
-import static edu.luc.etl.cs313.android.simplestopwatch.common.Constants.MAX;
+
 import static edu.luc.etl.cs313.android.simplestopwatch.common.Constants.SEC_PER_TICK;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -36,55 +36,31 @@ public abstract class AbstractTimeModelTest {
     @Test
     public void testPreconditions() {
         assertEquals(0, model.getRuntime());
-        assertTrue(model.getLaptime() <= 0);
+        //assertTrue(model.getLaptime() <= 0);
     }
 
     /**
      * Verifies that runtime is incremented correctly.
      */
+
     @Test
-    public void testIncrementRuntimeOne() {
+    public void testDecrementRuntimeOne() {
         final int rt = model.getRuntime();
-        final int lt = model.getLaptime();
-        model.incRuntime();
-        assertEquals((rt + SEC_PER_TICK) , model.getRuntime());
-        //Deleted SEC per MIN
-        assertEquals(lt, model.getLaptime());
+        model.decRuntime();
+        assertEquals((rt + SEC_PER_TICK), model.getRuntime());
     }
 
     /**
-     * Verifies that runtime turns over correctly.
+     * Verifies that runtime turns over correctly.  @author Julie
      */
     @Test
-    public void testIncrementRuntimeMany() {
+    public void testDecrementRuntimeMany(){
         final int rt = model.getRuntime();
-        final int lt = model.getLaptime();
-        for (int i = 0; i < MAX; i ++) {
-            //changed to MAX
-            model.incRuntime();
+        for (int i = 0; i < model.getRuntime(); i++){
+            model.decRuntime();
         }
         assertEquals(rt, model.getRuntime());
-        assertEquals(lt, model.getLaptime());
     }
-
     /**
-     * Verifies that laptime works correctly.
-     */
-    @Test
-    public void testLaptime() {
-        final int rt = model.getRuntime();
-        final int lt = model.getLaptime();
-        for (int i = 0; i < 5; i ++) {
-            model.incRuntime();
-        }
-        assertEquals(rt + 5, model.getRuntime());
-        assertEquals(lt, model.getLaptime());
-        model.setLaptime();
-        assertEquals(rt + 5, model.getLaptime());
-        for (int i = 0; i < 5; i ++) {
-            model.incRuntime();
-        }
-        assertEquals(rt + 10, model.getRuntime());
-        assertEquals(rt + 5, model.getLaptime());
-    }
-}
+     * Verifies that runtime turns over correctly for a period of time     @Julie
+     */}

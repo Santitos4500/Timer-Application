@@ -10,13 +10,9 @@ import java.util.TimerTask;
  */
 public class DefaultClockModel implements ClockModel {
 
-    // TODO make accurate by keeping track of partial seconds when canceled etc.
-
     private Timer timer;
 
     private OnTickListener listener;
-
-
 
     @Override
     public void setOnTickListener(final OnTickListener listener) {
@@ -38,6 +34,7 @@ public class DefaultClockModel implements ClockModel {
 
     @Override
     public void stop() {
-        timer.cancel();
+        try{timer.cancel();}
+        catch(NullPointerException e){}
     }
 }

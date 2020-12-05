@@ -45,7 +45,12 @@ public abstract class AbstractClockModelTest {
         // use a thread-safe object because the timer inside the
         // clock has its own thread
         final AtomicInteger i = new AtomicInteger(0);
-        model.setOnTickListener(i::incrementAndGet);
+        model.setOnTickListener(new OnTickListener() {
+            @Override
+            public void onTick() {
+                i.incrementAndGet();
+            }
+        });
         Thread.sleep(5500);
         assertEquals(0, i.get());
     }
@@ -58,7 +63,12 @@ public abstract class AbstractClockModelTest {
     @Test
     public void testRunning() throws InterruptedException {
         final AtomicInteger i = new AtomicInteger(0);
-        model.setOnTickListener(i::incrementAndGet);
+        model.setOnTickListener(new OnTickListener() {
+            @Override
+            public void onTick() {
+                i.incrementAndGet();
+            }
+        });
         model.start();
         Thread.sleep(5500);
         model.stop();
