@@ -2,6 +2,7 @@ package edu.luc.etl.cs313.android.simplestopwatch.test.android;
 
 import edu.luc.etl.cs313.android.simplestopwatch.BuildConfig;
 import edu.luc.etl.cs313.android.simplestopwatch.android.StopwatchAdapter;
+import edu.luc.etl.cs313.android.simplestopwatch.test.model.state.AbstractStopwatchStateMachineTest;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;

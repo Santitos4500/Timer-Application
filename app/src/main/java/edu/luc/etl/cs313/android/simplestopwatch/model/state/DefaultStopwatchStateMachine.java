@@ -21,11 +21,11 @@ public class DefaultStopwatchStateMachine implements StopwatchStateMachine {
     public DefaultStopwatchStateMachine(final TimeModel timeModel, final ClockModel clockModel,Context c) {
         this.timeModel = timeModel;
         this.clockModel = clockModel;
-        final Uri defaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        beep = RingtoneManager.getRingtone(c, defaultRingtoneUri);
+        final Uri defaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION); //added the beep/alarm from click counter
+        beep = RingtoneManager.getRingtone(c, defaultRingtoneUri); //added the beep/alarm from click counter
     }
 
-    private Ringtone beep;
+    private Ringtone beep;//giving the alarm a name
 
     private final TimeModel timeModel;
 
@@ -72,26 +72,31 @@ public class DefaultStopwatchStateMachine implements StopwatchStateMachine {
     @Override public void updateUIRuntime() { uiUpdateListener.updateTime(timeModel.getRuntime()); }
 
     // known states
+    //added the alarm and set states. removed the lap state
     private final StopwatchState STOPPED     = new StoppedState(this);
     private final StopwatchState RUNNING     = new RunningState(this);
     private final StopwatchState SET         = new SetState(this);
     private final StopwatchState ALARM       = new AlarmState(this);
 
     // transitions
+    //removed both of the lap states as we no longer needed that functionality because we got rid of the button and added the transitions for SetState and AlarmState
     @Override public void toRunningState()    { setState(RUNNING); }
     @Override public void toStoppedState()    { setState(STOPPED); }
-    @Override public void toSetState()        { setState(SET);     }
-    @Override public void toAlarmState()      { setState(ALARM);   }
+    @Override public void toSetState()        { setState(SET);     } //added the set state,
+    @Override public void toAlarmState()      { setState(ALARM);   } //added the alarm state
 
     // actions
     @Override public void actionInit()       {
         toStoppedState();
         actionReset();
     }
+
     @Override public void actionReset()      { timeModel.resetRuntime(); actionUpdateView(); }
     @Override public void actionStart()      { clockModel.start(); }
     @Override public void actionStop()       { clockModel.stop(); }
+    //removed actionLap
 
+    //added the actionPlaySound for beeping
     public void actionPlaySound(){
         beep.play();
     }
@@ -100,13 +105,13 @@ public class DefaultStopwatchStateMachine implements StopwatchStateMachine {
     public void actionInc() {
         timeModel.incRuntime();actionUpdateView();
     }
-
+    //added actionDec
     @Override public void actionDec()        {
         timeModel.decRuntime();
         actionUpdateView();
     }
     @Override public void actionUpdateView() { state.updateView(); }
-
+    //
     public int getRuntime(){return timeModel.getRuntime();}
 
 }

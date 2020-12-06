@@ -11,20 +11,22 @@ interface StopwatchSMStateView {
     // transitions
     void toRunningState();
     void toStoppedState();
-    void toSetState();
-    void toAlarmState();
+    void toSetState();//added SetState removed lap running
+    void toAlarmState();//added AlarmState removed lap stopped
 
     // actions
+    //removed the Lap actions and added dec, play sound, and getRuntime
     void actionInit();
     void actionReset();
     void actionStart();
     void actionStop();
-    void actionInc();
     void actionUpdateView();
+    void actionInc();
     void actionDec();
     void actionPlaySound();
     int getRuntime();
     // state-dependent UI updates
+    //removed update ui laptime
     void updateUIRuntime();
 
 }
