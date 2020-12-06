@@ -71,7 +71,7 @@ public abstract class AbstractTimeModelTest {
     public void testDecrementRuntimeOne() {
         final int rt = model.getRuntime();
         model.decRuntime();
-        assertEquals((rt + SEC_PER_TICK), model.getRuntime());
+        assertEquals((rt - SEC_PER_TICK), model.getRuntime());
     }
 
     @Test
