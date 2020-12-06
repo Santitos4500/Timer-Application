@@ -5,6 +5,7 @@ package edu.luc.etl.cs313.android.simplestopwatch.common;
  *
  * @author laufer
  */
+
 public interface StopwatchUIListener {
-    public void onCurrentStop();
+    void onCurrentStop();
 }

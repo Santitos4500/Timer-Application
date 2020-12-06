@@ -8,6 +8,7 @@ import java.util.TimerTask;
  *
  * @author laufer
  */
+
 public class DefaultClockModel implements ClockModel {
 
     private Timer timer;
@@ -15,11 +16,13 @@ public class DefaultClockModel implements ClockModel {
     private OnTickListener listener;
 
     @Override
+
     public void setOnTickListener(final OnTickListener listener) {
         this.listener = listener;
     }
 
     @Override
+
     public void start() {
         timer = new Timer();
 
@@ -34,6 +37,7 @@ public class DefaultClockModel implements ClockModel {
     }
 
     @Override
+
     public void stop() {
         //added a try and catch so that there are no exceptions
         try{timer.cancel();}

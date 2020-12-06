@@ -83,7 +83,7 @@ public class StopwatchAdapter extends Activity implements StopwatchUIUpdateListe
      * Updates the state name in the UI.
      * @param stateId
      */
-    
+
     public void updateState(final int stateId) {
         // UI adapter responsibility to schedule incoming events on UI thread
         runOnUiThread(() -> {
