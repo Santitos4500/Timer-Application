@@ -64,6 +64,7 @@ public abstract class AbstractStopwatchStateMachineTest {
      */
     @Test
     public void testPreconditions() {
+        dependency.setStateId(R.string.STOPPED);
         assertEquals(R.string.STOPPED, dependency.getState());
     }
 
@@ -118,6 +119,10 @@ class UnifiedMockDependency implements TimeModel, ClockModel, StopwatchUIUpdateL
 
     public int getTime() {
         return timeValue;
+    }
+
+    public void setStateId(final int stateId){
+        this.stateId = stateId;
     }
 
     public int getState() {
