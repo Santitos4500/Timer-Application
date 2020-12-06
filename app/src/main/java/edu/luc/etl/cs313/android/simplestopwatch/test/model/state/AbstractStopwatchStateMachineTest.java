@@ -99,16 +99,14 @@ public abstract class AbstractStopwatchStateMachineTest {
         assertEquals(t, dependency.getTime());
     }
 }
+    /**
+    * Manually implemented mock object that unifies the three dependencies of the
+    * stopwatch state machine model. The three dependencies correspond to the three
+    * interfaces this mock object implements.
+    *
+    * @author laufer
+    */
 
-/**
- * Manually implemented mock object that unifies the three dependencies of the
- * stopwatch state machine model. The three dependencies correspond to the three
- * interfaces this mock object implements.
- *
- * @author laufer
- *
- * Added a decRuntime() method @Julie
- */
 class UnifiedMockDependency implements TimeModel, ClockModel, StopwatchUIUpdateListener {
 
     private int timeValue = -1, stateId = -1;
