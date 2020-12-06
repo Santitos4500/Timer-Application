@@ -41,6 +41,7 @@ public class ConcreteStopwatchModelFacade implements StopwatchModelFacade {
         stateMachine.setUIUpdateListener(listener);
     }
 
+    //got rid of onLapReset because there are no laps in the program
     public TimeModel getTimeModel(){ return timeModel;}
     public StopwatchStateMachine getStateMachine(){return stateMachine;}
 

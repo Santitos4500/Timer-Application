@@ -37,6 +37,7 @@ public class StopwatchAdapter extends Activity implements StopwatchUIUpdateListe
         // inject dependency on model into this so model receives UI events
         this.setModel(new ConcreteStopwatchModelFacade(getApplicationContext()));
         model.setUIUpdateListener(this);
+        //added if-else statement so we can get timer to set a time and to be able to count down
         if(savedInstanceState != null){
             model.getTimeModel().setRuntime(savedInstanceState.getInt("Runtime"));
             model.getStateMachine().setState(savedInstanceState.getInt("State"));
@@ -69,6 +70,7 @@ public class StopwatchAdapter extends Activity implements StopwatchUIUpdateListe
     public void updateTime(final int time) {
         // UI adapter responsibility to schedule incoming events on UI thread
         runOnUiThread(() -> {
+            //Don't need parameters for anything other than seconds
             final TextView tvS = (TextView) findViewById(R.id.seconds);
 
             final int seconds = time;
@@ -90,6 +92,7 @@ public class StopwatchAdapter extends Activity implements StopwatchUIUpdateListe
     }
 
     // forward event listener methods to the model
+    //the following command will reset timer when stopped or finishes after hitting button
     public void onSetStop(final View view) {
         model.onCurrentStop();
     }

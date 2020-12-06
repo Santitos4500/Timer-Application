@@ -26,6 +26,7 @@ public class DefaultClockModel implements ClockModel {
         // The clock model runs onTick every 1000 milliseconds
         timer.schedule(new TimerTask() {
             @Override public void run() {
+                //don't need a new timer task since it won't be a stopwatch
                 // fire event
                 listener.onTick();
             }
@@ -34,6 +35,7 @@ public class DefaultClockModel implements ClockModel {
 
     @Override
     public void stop() {
+        //added a try and catch so that there are no exceptions
         try{timer.cancel();}
         catch(NullPointerException e){}
     }

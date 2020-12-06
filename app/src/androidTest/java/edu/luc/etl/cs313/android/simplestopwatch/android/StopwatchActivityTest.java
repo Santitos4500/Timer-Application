@@ -29,6 +29,7 @@ public class StopwatchActivityTest extends ActivityInstrumentationTestCase2<Stop
             protected StopwatchAdapter getActivity() {
                 // return activity instance provided by instrumentation test
                 return StopwatchActivityTest.this.getActivity();
+                //don't need if to adapt to a stopwatch
             }
         };
     }
@@ -38,6 +39,7 @@ public class StopwatchActivityTest extends ActivityInstrumentationTestCase2<Stop
     public void testActivityCheckTestCaseSetUpProperly() {
         actualTest.testActivityCheckTestCaseSetUpProperly();
     }
+    //got rid of testActivityScenarioRun
 
     public void testActivityScenarioRun() throws Throwable {
         actualTest.testActivityScenarioRun();

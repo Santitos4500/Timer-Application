@@ -6,6 +6,7 @@ import static edu.luc.etl.cs313.android.simplestopwatch.common.Constants.*;
  * An implementation of the stopwatch data model.
  */
 public class DefaultTimeModel implements TimeModel {
+    //no functions in the program to run a lap, so it was expelled from the program
 
     private int runningTime = 0;
     //removed  private int lapTime
@@ -32,5 +33,6 @@ public class DefaultTimeModel implements TimeModel {
     public int getRuntime() {
         return runningTime;
     }
+
 
 }

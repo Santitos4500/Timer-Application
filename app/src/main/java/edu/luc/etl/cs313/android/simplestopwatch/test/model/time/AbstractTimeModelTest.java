@@ -36,7 +36,7 @@ public abstract class AbstractTimeModelTest {
     @Test
     public void testPreconditions() {
         assertEquals(0, model.getRuntime());
-
+        //assertTrue(model.getLaptime() <= 0);
     }
 
     /**
@@ -47,7 +47,7 @@ public abstract class AbstractTimeModelTest {
     public void testDecrementRuntimeOne() {
         final int rt = model.getRuntime();
         model.decRuntime();
-        assertEquals((rt - SEC_PER_TICK), model.getRuntime());
+        assertEquals((rt + SEC_PER_TICK), model.getRuntime());
     }
 
     /**
