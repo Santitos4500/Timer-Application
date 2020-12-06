@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import android.content.pm.ActivityInfo;
 import android.widget.Button;
 import android.widget.TextView;
 import edu.luc.etl.cs313.android.simplestopwatch.R;
@@ -53,14 +54,25 @@ public abstract class AbstractStopwatchActivityTest {
             assertEquals(0, getDisplayedValue());
             assertTrue(getStartStopButton().performClick());
         }});
-        Thread.sleep(5500); // <-- do not run this in the UI thread!
+        Thread.sleep(1000); // <-- do not run this in the UI thread!
         runUiThreadTasks();
         getActivity().runOnUiThread(new Runnable() { @Override public void run() {
-            assertEquals(5, getDisplayedValue());
+            assertEquals(1, getDisplayedValue());
             assertTrue(getStartStopButton().performClick());
         }});
     }
+    @Test
 
+    public void testActivityScenarioRotation() {
+        assertTrue(getStartStopButton().performClick());
+        assertEquals(1, getDisplayedValue());
+        assertEquals(1, getDisplayedValue());
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        assertEquals(1, getDisplayedValue());
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        assertEquals(1, getDisplayedValue());
+
+    }
     /**
      * Verifies the following scenario: time is 0, press start, wait 5+ seconds,
      * expect time 5, press lap, wait 4 seconds, expect time 5, press start,
