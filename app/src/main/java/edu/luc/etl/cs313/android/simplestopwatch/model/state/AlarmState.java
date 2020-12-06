@@ -1,7 +1,7 @@
 package edu.luc.etl.cs313.android.simplestopwatch.model.state;
 
 import edu.luc.etl.cs313.android.simplestopwatch.R;
-import edu.luc.etl.cs313.android.simplestopwatch.android.StopwatchAdapter;
+
 
 class AlarmState implements StopwatchState {
     //Added a state AlarmState in order to add it to the state machine.

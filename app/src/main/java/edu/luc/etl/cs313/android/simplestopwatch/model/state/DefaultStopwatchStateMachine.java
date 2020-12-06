@@ -1,20 +1,14 @@
 package edu.luc.etl.cs313.android.simplestopwatch.model.state;
 
 import android.content.Context;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
+
 import android.media.Ringtone;
 import android.media.RingtoneManager;
-import android.media.SoundPool;
 import android.net.Uri;
-import android.view.SoundEffectConstants;
-
-import java.io.IOException;
-
 import edu.luc.etl.cs313.android.simplestopwatch.common.StopwatchUIUpdateListener;
 import edu.luc.etl.cs313.android.simplestopwatch.model.clock.ClockModel;
 import edu.luc.etl.cs313.android.simplestopwatch.model.time.TimeModel;
-import edu.luc.etl.cs313.android.simplestopwatch.android.StopwatchAdapter;
+
 
 public class DefaultStopwatchStateMachine implements StopwatchStateMachine {
 
@@ -34,6 +28,7 @@ public class DefaultStopwatchStateMachine implements StopwatchStateMachine {
     /**
      * The internal state of this adapter component. Required for the State pattern.
      */
+
     private StopwatchState state;
 
     public int getState(){
@@ -61,18 +56,21 @@ public class DefaultStopwatchStateMachine implements StopwatchStateMachine {
     private StopwatchUIUpdateListener uiUpdateListener;
 
     @Override
+
     public void setUIUpdateListener(final StopwatchUIUpdateListener uiUpdateListener) {
         this.uiUpdateListener = uiUpdateListener;
     }
 
     // forward event uiUpdateListener methods to the current state
     @Override public void onCurrentStop() { state.onCurrentStop(); }
+
     @Override public void onTick()      { state.onTick(); }
 
     @Override public void updateUIRuntime() { uiUpdateListener.updateTime(timeModel.getRuntime()); }
 
     // known states
     //added the alarm and set states. removed the lap state
+
     private final StopwatchState STOPPED     = new StoppedState(this);
     private final StopwatchState RUNNING     = new RunningState(this);
     private final StopwatchState SET         = new SetState(this);
@@ -80,6 +78,7 @@ public class DefaultStopwatchStateMachine implements StopwatchStateMachine {
 
     // transitions
     //removed both of the lap states as we no longer needed that functionality because we got rid of the button and added the transitions for SetState and AlarmState
+
     @Override public void toRunningState()    { setState(RUNNING); }
     @Override public void toStoppedState()    { setState(STOPPED); }
     @Override public void toSetState()        { setState(SET);     } //added the set state,
@@ -92,7 +91,9 @@ public class DefaultStopwatchStateMachine implements StopwatchStateMachine {
     }
 
     @Override public void actionReset()      { timeModel.resetRuntime(); actionUpdateView(); }
+
     @Override public void actionStart()      { clockModel.start(); }
+
     @Override public void actionStop()       { clockModel.stop(); }
     //removed actionLap
 
@@ -102,6 +103,7 @@ public class DefaultStopwatchStateMachine implements StopwatchStateMachine {
     }
 
     @Override
+
     public void actionInc() {
         timeModel.incRuntime();actionUpdateView();
     }
